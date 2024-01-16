@@ -30,11 +30,13 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
+    "oxlint": "^0.2.0",
     "prettier": "^3.2.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
   }
 }
