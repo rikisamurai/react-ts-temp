@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: {browser: true, es2020: true},
+  env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
@@ -9,6 +9,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:eslint-comments/recommended',
+    // Turns off all rules that are unnecessary or might conflict with Prettier.
+    'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -19,11 +21,21 @@ module.exports = {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
-  plugins: ['react-refresh', '@typescript-eslint', 'import', 'eslint-comments'],
+  plugins: ['react-refresh', '@typescript-eslint', 'import', 'eslint-comments', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      {allowConstantExport: true},
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    // compatible with .prettierrc at root
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 100,
+        endOfLine: 'auto',
+        singleQuote: true,
+        trailingComma: 'all',
+        arrowParens: 'always',
+        tabWidth: 2,
+        semi: true,
+      },
     ],
     /**
      * import
@@ -37,19 +49,18 @@ module.exports = {
       'error',
       {
         fixStyle: 'separate-type-imports',
-        prefer: 'type-imports'
-      }
+        prefer: 'type-imports',
+      },
     ],
     '@typescript-eslint/consistent-type-exports': 'error',
-    'eslint-comments/no-unused-disable': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
+    'eslint-comments/no-unused-disable': 'error',
   },
   overrides: [
     // @typescript-eslint不对js(x)文件生效
     {
       extends: ['plugin:@typescript-eslint/disable-type-checked'],
-      files: ['**/*.{cjs,js,jsx}']
-    }
-  ]
-
-}
+      files: ['**/*.{cjs,js,jsx}'],
+    },
+  ],
+};
